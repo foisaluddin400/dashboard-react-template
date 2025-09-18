@@ -7,31 +7,32 @@ import user from "../../assets/routerImg/user.png";
 import logo from "../../assets/header/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { FaChevronRight } from "react-icons/fa";
+import { FaChevronRight, FaHome } from "react-icons/fa";
 import { IoIosLogIn } from "react-icons/io";
 import { logout } from "../../page/redux/features/auth/authSlice";
 import { useDispatch } from "react-redux";
-
+import { FiUser } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbCategory2 } from "react-icons/tb";
 const items = [
   {
     key: "dashboard",
     label: "Dashboard",
-    icon: dashboard,
+    icon: <FaHome />,
     link: "/",
   },
   {
     key: "userManagement",
     label: "User Management",
-    icon: user,
+    icon: <FiUser />,
     link: "/dashboard/UserManagement",
   },
-
   
   
   {
     key: "categoriesManagement",
     label: "Categories Management",
-    icon: categorie,
+    icon: <TbCategory2 />,
     link: "/dashboard/CategoriesManagement/Categories",
     children: [
       {
@@ -49,13 +50,13 @@ const items = [
   {
     key: "subscription",
     label: "Subscription",
-    icon: subscription,
+    icon: <TbCategory2 />,
     link: "/dashboard/Subscription",
   },
   {
     key: "settings",
     label: "Settings",
-    icon: settings,
+    icon:<IoSettingsOutline />,
     link: "/dashboard/Settings/profile",
     children: [
       {
@@ -138,7 +139,7 @@ const SidBar = () => {
   };
 
   return (
-    <div className="custom-sidebar h-[100vh] bg-[#120c66]">
+    <div className="custom-sidebar h-[100vh] bg-white">
       
       <div className="custom-sidebar-logo flex justify-center">
         <img src={logo} alt="Logo" className="w-[160px]" />
@@ -161,27 +162,31 @@ const SidBar = () => {
             <div key={item.key}>
               <Link
                 to={item.link}
-                className={`menu-item my-4 mx-5 py-3 px-3 flex items-center cursor-pointer ${
-                  selectedKey === item.key || isSettingsActive || isCreatorActive || isCategoriesActive
-                    ? "bg-[#bb3538] text-white rounded-md"
-                    : "bg-white rounded-md hover:bg-gray-200"
+                className={`menu-item my-2 mr-3 py-[10px] px-3 flex items-center cursor-pointer ${
+                  selectedKey === item.key ||
+                  isSettingsActive ||
+                  isCreatorActive ||
+                  isCategoriesActive
+                    ? "bg-[#E63946] text-white rounded-r-3xl "
+                    : "bg-white rounded-r-3xl hover:bg-gray-200"
                 }`}
                 onClick={(e) => {
                   if (item.children) {
-                    e.preventDefault(); 
-                    onParentClick(item.key); 
+                    e.preventDefault();
+                    onParentClick(item.key);
                   } else {
                     setSelectedKey(item.key);
                   }
                 }}
               >
-                <img src={item.icon} alt={item.label} className="w-5 h-5 mr-3" />
+                <h1 className="w-5 mr-2">{item.icon}</h1>
+
                 <span className="block w-full ">{item.label}</span>
 
                 {/* Show dropdown arrow if children exist */}
                 {item.children && (
                   <FaChevronRight
-                    className={`ml-auto transform transition-all duration-300 ${
+                    className={`ml-auto transform transition-all text-[10px] duration-300 ${
                       expandedKeys.includes(item.key) ? "rotate-90" : ""
                     }`}
                   />
@@ -191,7 +196,7 @@ const SidBar = () => {
               {/* Show children menu if expanded */}
               {item.children && (
                 <div
-                  className={`children-menu bg-white -my-2 mx-5 transition-all duration-300 ${
+                  className={`children-menu bg-white ml-6 mx-2  transition-all duration-300 ${
                     expandedKeys.includes(item.key) ? "expanded" : ""
                   }`}
                   style={{
@@ -205,9 +210,9 @@ const SidBar = () => {
                     <Link
                       key={child.key}
                       to={child.link}
-                      className={`menu-item p-4 flex items-center cursor-pointer ${
+                      className={`menu-item p-2 flex items-center cursor-pointer ${
                         selectedKey === child.key
-                          ? "bg-[#bb3538] text-white"
+                          ? "bg-[#E63946] text-white"
                           : "hover:bg-gray-200"
                       }`}
                       onClick={() => {
@@ -226,10 +231,10 @@ const SidBar = () => {
       </div>
 
       {/* Logout Button */}
-      <div className="  w-full p-4 px-5">
+     <div className="  w-full p-4 border-t mt-4">
         <button
           onClick={handleLogout}
-          className="w-full flex bg-[#fa16ef] text-white text-start rounded-md  p-3"
+          className="w-full flex  text-black text-start rounded-md  "
         >
           <span className="text-2xl">
             <IoIosLogIn />

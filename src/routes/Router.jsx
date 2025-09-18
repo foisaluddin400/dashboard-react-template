@@ -94,15 +94,15 @@ export const router = createBrowserRouter([
     element: <Login></Login>,
   },
   {
-    path: "/forgetpassword",
+    path: "/forgot-password",
     element: <ForgetPass></ForgetPass>,
   },
   {
-    path: "/verify",
+    path: "/verification",
     element: <Verify></Verify>,
   },
   {
-    path: "/reset",
+    path: "/reset-password",
     element: <ResetPass></ResetPass>,
   },
 ]);
