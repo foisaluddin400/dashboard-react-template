@@ -14,79 +14,92 @@ import { useDispatch } from "react-redux";
 import { FiUser } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TbCategory2 } from "react-icons/tb";
-const items = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    icon: <FaHome />,
-    link: "/",
-  },
-  {
-    key: "userManagement",
-    label: "User Management",
-    icon: <FiUser />,
-    link: "/dashboard/UserManagement",
-  },
-  
-  
-  {
-    key: "categoriesManagement",
-    label: "Categories Management",
-    icon: <TbCategory2 />,
-    link: "/dashboard/CategoriesManagement/Categories",
-    children: [
-      {
-        key: "categories",
-        label: "Categories",
-        link: "/dashboard/CategoriesManagement/Categories",
-      },
-      {
-        key: "subcategory",
-        label: "Subcategory",
-        link: "/dashboard/CategoriesManagement/Subcategory",
-      },
-    ],
-  },
-  {
-    key: "subscription",
-    label: "Subscription",
-    icon: <TbCategory2 />,
-    link: "/dashboard/Subscription",
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    icon:<IoSettingsOutline />,
-    link: "/dashboard/Settings/profile",
-    children: [
-      {
-        key: "profile",
-        label: "Profile",
-        link: "/dashboard/Settings/profile",
-      },
-      {
-        key: "terms",
-        label: "Terms & Condition",
-        link: "/dashboard/Settings/Terms&Condition",
-      },
-      {
-        key: "privacy",
-        label: "Privacy Policy",
-        link: "/dashboard/Settings/PrivacyPolicy",
-      },
-      {
-        key: "faq",
-        label: "FAQ",
-        link: "/dashboard/Settings/FAQ",
-      },
-      {
-        key: "about",
-        label: "About Us",
-        link: "/dashboard/Settings/aboutUs",
-      },
-    ],
-  },
-];
+import items from "../item.json";
+const icons = {
+  FaHome,
+  FiUser,
+  TbCategory2,
+  IoSettingsOutline,
+};
+
+// const items = [
+//   {
+//     key: "dashboard",
+//     label: "Dashboard",
+//     icon: <FaHome />,
+//     link: "/",
+//   },
+//   {
+//     key: "userManagement",
+//     label: "User Management",
+//     icon: <FiUser />,
+//     link: "/dashboard/UserManagement",
+//   },
+
+//     {
+//     key: "VendorManagement",
+//     label: "Vendor Management",
+//     icon: <FiUser />,
+//     link: "/dashboard/VendorManagement",
+//   },
+//   {
+//     key: "categoriesManagement",
+//     label: "Categories Management",
+//     icon: <TbCategory2 />,
+//     link: "/dashboard/CategoriesManagement/Categories",
+//     children: [
+//       {
+//         key: "categories",
+//         label: "Categories",
+//         link: "/dashboard/CategoriesManagement/Categories",
+//       },
+//       {
+//         key: "subcategory",
+//         label: "Subcategory",
+//         link: "/dashboard/CategoriesManagement/Subcategory",
+//       },
+//     ],
+//   },
+//   {
+//     key: "subscription",
+//     label: "Subscription",
+//     icon: <TbCategory2 />,
+//     link: "/dashboard/Subscription",
+//   },
+//   {
+//     key: "settings",
+//     label: "Settings",
+//     icon:<IoSettingsOutline />,
+//     link: "/dashboard/Settings/profile",
+//     children: [
+//       {
+//         key: "profile",
+//         label: "Profile",
+//         link: "/dashboard/Settings/profile",
+//       },
+//       {
+//         key: "terms",
+//         label: "Terms & Condition",
+//         link: "/dashboard/Settings/Terms&Condition",
+//       },
+//       {
+//         key: "privacy",
+//         label: "Privacy Policy",
+//         link: "/dashboard/Settings/PrivacyPolicy",
+//       },
+//       {
+//         key: "faq",
+//         label: "FAQ",
+//         link: "/dashboard/Settings/FAQ",
+//       },
+//       {
+//         key: "about",
+//         label: "About Us",
+//         link: "/dashboard/Settings/aboutUs",
+//       },
+//     ],
+//   },
+// ];
 
 const SidBar = () => {
   const [selectedKey, setSelectedKey] = useState("dashboard");
@@ -140,7 +153,6 @@ const SidBar = () => {
 
   return (
     <div className="custom-sidebar h-[100vh] bg-white">
-      
       <div className="custom-sidebar-logo flex justify-center">
         <img src={logo} alt="Logo" className="w-[160px]" />
       </div>
@@ -157,7 +169,7 @@ const SidBar = () => {
           const isCategoriesActive =
             item.key === "categoriesManagement" &&
             item.children.some((child) => child.link === location.pathname);
-
+          const Icon = icons[item.icon];
           return (
             <div key={item.key}>
               <Link
@@ -179,7 +191,9 @@ const SidBar = () => {
                   }
                 }}
               >
-                <h1 className="w-5 mr-2">{item.icon}</h1>
+                <h1 className="w-5 mr-2">
+                  <Icon />
+                </h1>
 
                 <span className="block w-full ">{item.label}</span>
 
@@ -231,7 +245,7 @@ const SidBar = () => {
       </div>
 
       {/* Logout Button */}
-     <div className="  w-full p-4 border-t mt-4">
+      <div className="  w-full p-4 border-t mt-4">
         <button
           onClick={handleLogout}
           className="w-full flex  text-black text-start rounded-md  "
